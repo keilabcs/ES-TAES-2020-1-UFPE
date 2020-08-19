@@ -1,6 +1,12 @@
+[![R Version][R-image]][R-url]
+[![TeX Version][TeX-image]][TeX-url]
+[![Build Status][travis-image]][travis-url]
+[![Downloads Stats][npm-downloads]][npm-url]
+
 # ES-TAES-2020-1
 
 ### Survey Software Development Waste
+
 
 O objetivo desta pesquisa, realizada através de questionário, é identificar os principais motivos que acarretam a perda de produtividade no processo de desenvolvimento de software.
 
