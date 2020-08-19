@@ -1,0 +1,100 @@
+---
+title: "Survey Software Development Waste"
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+  word_document: default
+---
+
+#### Pós-Graduação em Ciências da Computação - Cin/UFPE
+#### Keila Barbosa Costa dos Santos
+#### Denini
+#### Irvin
+
+```{r}
+library("tidyr")
+library(ggplot2)
+library(grid)
+library(ggthemes)
+library(extrafont)
+require(wesanderson)
+library(readr)
+library(tidyr)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Read Data
+```{r}
+library(readxl)
+
+Survey<- read_excel("~/ES-TAES-2020-1/Base/Survey Software Development Waste (respostas).xlsx")
+View(Survey)
+```
+
+```{r}
+head(Survey[1:5])
+```
+## Including Plots
+
+```{r}
+home.land.byyear <- gather(Data,
+                           value = "value",
+                           key = "type",
+                           Data, Data)
+ggplot(Data,
+       aes(x=Date,
+           y=value,
+           color=type)) +
+  geom_line()
+```
+
+## Examples
+
+```{r}
+View(EF_Engeneering)
+
+Eng_EF <-ggplot() + 
+  geom_line(aes(y = EF, x = YEAR, colour = FULL_JOURNAL_TITLE), size=1.0, 
+            data = EF_Engeneering, stat="identity")+
+  
+  scale_x_continuous(breaks = seq (2006,2015,1))+
+  scale_y_continuous(breaks = seq (0.00300,0.08500,0.00500))+
+  labs(x="Year", y="Journal Eigenfactor Score")+ 
+  ggtitle("Engineering, Electrical & Electronic  - SCIE") +
+  theme_economist() + 
+  theme(axis.line.x = element_line (size=.5, colour = "black"),
+        legend.position="bottom",
+        legend.direction="horizontal",
+        legend.title = element_blank(),
+        plot.title=element_text(family="OfficinaSanITC-Book"), 
+        text=element_text(family="OfficinaSanITC-Book"),
+        legend.text = element_text(colour = "black", size = 6, face = "bold"))
+
+EF_Eng_EF <- Eng_EF + scale_colour_manual(values=c("grey","grey","#871F78","#238E23","grey","#3232CD","grey","grey","grey","grey","grey","grey","grey"), 
+                                        name="FULL_JOURNAL_TITLE",
+                                        labels=c("Automatica",
+                                                 "Expert Systems With Applications",
+                                                 "IEEE Geoscience And Remote Sensing Letters",
+                                                 "IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing",
+                                                 "IEEE Transactions On Automatic Control",
+                                                 "IEEE Transactions On Geoscience And Remote Sensing",
+                                                 "IEEE Transactions On Image Processing",
+                                                 "IEEE Transactions On Industrial Electronics",
+                                                 "IEEE Transactions On Information Theory",
+                                                 "IEEE Transactions On Pattern Analysis And Machine Intelligence",
+                                                 "IEEE Transactions On Power Electronics",
+                                                 "IEEE Transactions On Signal Processing",
+                                                 "IEEE Transactions On Wireless Communications"))
+
+EF_Eng_EF
+```
+
+
+
+
+
