@@ -50,6 +50,14 @@ head(Survey)
 ```
 ### Realização do teste de Mann-Whitney
 
+Para cada 2(BACKLOG, BUILD) Arrays fazer um teste de Mann-Whitney. Se p<0.05 (Resultado significativo) considerar, se p>0.05 (Resultado não significativo) descartar.
+Ex. BACKLOG < BUILD or REWORK < BUILD
+Elaborate Rank. por resultado de Mann-Whitney Ex. BUILD - 2, REWORK - 1, BACKLOG - 1.
+Exemplo de Rank: 1. BUIL
+                 2. BACKLOG, REWORK
+
+https://www.youtube.com/watch?v=ms3fMFBgH8A&feature=youtu.be
+
 ```{r}
 wilcox.test(build ~ candidate, data = Survey)
 wilcox.test(mismanaging ~ candidate, data = Survey)
