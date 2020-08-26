@@ -52,9 +52,9 @@ if __name__ == '__main__':
             else:
                 print('--->ERROR: Unknown question: %s' % a)
 
-            new[QUESTIONS[question]] = a  # fazendo a traducao da pergunta tbm
+            new[QUESTIONS[question]] = a  # fazendo a traducao da pergunta 
 
-        for question in QUESTIONS_OPINION.keys():  # mesma coisa, mas para as perguntas abertas
+        for question in QUESTIONS_OPINION.keys():  # para as perguntas abertas
             a = answer[question]
             new[QUESTIONS_OPINION[question]] = a
 

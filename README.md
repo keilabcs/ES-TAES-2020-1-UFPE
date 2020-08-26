@@ -1,8 +1,3 @@
-[![R Version][R-image]][R-url]
-[![HTML Version][HTML-image]][HTML-url]
-[![TeX Version][TeX-image]][TeX-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
 
 # ES-TAES-2020-1
 
