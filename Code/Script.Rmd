@@ -27,9 +27,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Carregar os pacotes que serão usados
 ```{r}
-library(dplyr)                                  
-library(rstatix)                                
+library(dplyr) 
+library(ggplot2)
 library(readxl)
+library(rstatix) 
 ```
 
 * Importante: selecionar o diretório de trabalho (working directory)
@@ -48,6 +49,22 @@ glimpse(Survey)                                                 # Visualização
 ```{r}
 head(Survey)
 ```
+
+```{r}
+library(ggplot2)
+library(patchwork)
+p1 <- ggplot(Survey, aes(x = Survey$build)) +
+  geom_bar()
+
+p2 <- ggplot(Survey, aes(x = Survey$mismanaging)) +
+  geom_bar()
+
+p3 <- ggplot(Survey, aes(x = Survey$rework)) +
+  geom_bar()
+
+p1 + p2 + p3
+```
+
 ### Realização do teste de Mann-Whitney
 
 Para cada 2(BACKLOG, BUILD) Arrays fazer um teste de Mann-Whitney. Se p<0.05 (Resultado significativo) considerar, se p>0.05 (Resultado não significativo) descartar.
@@ -58,10 +75,13 @@ Exemplo de Rank: 1. BUIL
 
 https://www.youtube.com/watch?v=ms3fMFBgH8A&feature=youtu.be
 
+Mann-Whitney teste não parametrico usado em que a amostras não é normmal. 
+Em amostras não normais(independentes) a média não tem boa representação.
+Recortar a Mediana, o intervalo e a amplitude e distância interquartil. 
 ```{r}
-wilcox.test(build ~ candidate, data = Survey)
-wilcox.test(mismanaging ~ candidate, data = Survey)
-wilcox.test(rework ~ candidate, data = Survey)
+#Teste de Mann-Whitney para duas amostras independentes: Bicaudal.
+#Variavel dependente e variavel de agrupamento 
+wilcox.test(build ~ mismanaging, data = Survey)
 ```
 
 ##### Observação:
