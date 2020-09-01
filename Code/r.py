@@ -82,11 +82,26 @@ def create_csv_summary(resumo_):
                 0), resumo[r].count(1), resumo[r].count(2), resumo[r].count(3)))
 
 
+def create_csv_estados(resumo):
+    count_pe = resumo['estado'].count('Pernambuco')
+    count_al = resumo['estado'].count('Alagoas')
+    count_pb = resumo['estado'].count('Paraíba')
+    count_outros = len(resumo['estado']) - count_pe - count_al - count_pb
+
+    with open(f'{path_saida}resumo_estados.csv', 'w') as f:
+        f.write('estado, quantidade\n')
+        f.write(f'Pernambuco, {count_pe}\n')
+        f.write(f'Alagoas, {count_al}\n')
+        f.write(f'Paraíba, {count_pb}\n')
+        f.write(f'Outros, {count_outros}')
+
+
 def main():
     respostas = read_csv()
     #respostas = respostas[: 2]
-
     resumo = create_summary(respostas)
+    create_csv_estados(resumo)
+
     # create_csv_summary(resumo)
 
     create_ranking(resumo)
