@@ -17,7 +17,7 @@ QUESTIONS_OPINION = {'10 - Adicione uma perda de produtividade que você acha re
 
 
 def read_csv():
-    mycsv = open('results2.csv', 'r')
+    mycsv = open('results3.csv', 'r')
     reader = csv.DictReader(mycsv)
     dict_list = []
     for line in reader:
@@ -26,7 +26,7 @@ def read_csv():
 
 
 def save_csv(dict_list):
-    with open('new_results2.csv', 'w') as f:
+    with open('new_results3.csv', 'w') as f:
         w = csv.DictWriter(f, dict_list[0].keys())
         w.writeheader()
         for d in dict_list:
@@ -44,15 +44,15 @@ if __name__ == '__main__':
             if 'Nunca observei' in a:
                 a = '0'
             elif 'Observo raramente' in a:
-                a = '3'
+                a = '1'
             elif 'Observo ocasionalmente' in a:
                 a = '2'
             elif 'frequência' in a:
-                a = '1'
+                a = '3'
             else:
                 print('--->ERROR: Unknown question: %s' % a)
 
-            new[QUESTIONS[question]] = a  # fazendo a traducao da pergunta 
+            new[QUESTIONS[question]] = a  # fazendo a traducao da pergunta
 
         for question in QUESTIONS_OPINION.keys():  # para as perguntas abertas
             a = answer[question]
