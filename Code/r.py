@@ -6,7 +6,7 @@ ALPHA = 0.05
 
 
 def read_csv():
-    mycsv = open('../code_read_csv/new_results3.csv', 'r')
+    mycsv = open('../data/new_results.csv', 'r')
     reader = csv.DictReader(mycsv)
     dict_list = []
     for line in reader:
@@ -24,7 +24,7 @@ def save_csv(dict_list):
 def create_summary(respostas):
     resumo = {'build': [], 'mismanaging': [], 'rework': [], 'unnecessarily': [], 'extraneous': [],
               'psychological': [], 'waiting': [], 'knowledge': [], 'ineffective': [], 'opiniao': [],
-              'estado': [], 'email': []}
+              'estado': []}
     for resp in respostas:  # percorrendo as respostas de todas as pessoas
         for pergunta in resumo.keys():  # todas as perguntas que fizemos
             resposta = resp[pergunta]
@@ -40,7 +40,6 @@ def create_summary(respostas):
 def algoritmo(resumo_):
     resumo = copy.deepcopy(resumo_)
     del resumo['estado']
-    del resumo['email']
     del resumo['opiniao']
     ranking = {}
     for r in resumo.keys():
@@ -71,7 +70,6 @@ def create_ranking(resumo):
 def create_csv_summary(resumo_):
     resumo = copy.deepcopy(resumo_)
     del resumo['estado']
-    del resumo['email']
     del resumo['opiniao']
 
     with open(f'{path_saida}resumo_respostas.csv', 'w') as f:
@@ -103,7 +101,6 @@ def main():
     create_csv_estados(resumo)
 
     # create_csv_summary(resumo)
-
     create_ranking(resumo)
 
 
