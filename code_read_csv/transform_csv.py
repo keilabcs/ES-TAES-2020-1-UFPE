@@ -11,13 +11,12 @@ QUESTIONS = {'Desenvolver uma funcionalidade que não atende o que foi requisita
              'Falhas na comunicação, falta de diálogo e falta de entrosamento das pessoas ao se comunicarem.  (Ineffective communication)': 'ineffective',
              }
 
-QUESTIONS_OPINION = {'10 - Adicione uma perda de produtividade que você acha relevante, mas não consta neste formulário.  ': 'opiniao',
-                     '11 - Em que estado você trabalha?': 'estado',
-                     'Caso você queria receber os resultados dessa pesquisa, informe seu e-mail.': 'email'}
+QUESTIONS_OPINION = {"10 - Adicione uma perda de produtividade que você acha relevante, mas não consta neste formulário.  ": 'opiniao',
+                     '11 - Em que estado você trabalha?': 'estado'}
 
 
 def read_csv():
-    mycsv = open('results3.csv', 'r')
+    mycsv = open('results.csv', 'r')
     reader = csv.DictReader(mycsv)
     dict_list = []
     for line in reader:
@@ -26,7 +25,7 @@ def read_csv():
 
 
 def save_csv(dict_list):
-    with open('new_results3.csv', 'w') as f:
+    with open('new_results.csv', 'w') as f:
         w = csv.DictWriter(f, dict_list[0].keys())
         w.writeheader()
         for d in dict_list:
