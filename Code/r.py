@@ -1,6 +1,8 @@
-from scipy.stats import mannwhitneyu
+#from scipy.stats import mannwhitneyu
+from scipy.stats import ttest_ind
 import csv
 import copy
+from numpy import mean
 path_saida = '../output/'
 ALPHA = 0.05
 
@@ -21,7 +23,7 @@ def save_csv(dict_list):
         w.writerow(dict_list)
 
 
-def create_summary(respostas):
+def criar_resumo(respostas):
     resumo = {'build': [], 'mismanaging': [], 'rework': [], 'unnecessarily': [], 'extraneous': [],
               'psychological': [], 'waiting': [], 'knowledge': [], 'ineffective': [], 'opiniao': [],
               'estado': []}
@@ -45,9 +47,9 @@ def algoritmo(resumo_):
     for r in resumo.keys():
         cont = 0  # contador das 'vitorias'
         for r2 in resumo.keys():
-            if r == r2:  # nao comparar ele com ele mesmo
+            if r == r2:  # nao comparar com ele mesmo
                 continue
-            stat, p = mannwhitneyu(resumo[r], resumo[r2])
+            stat, p = ttest_ind(resumo[r], resumo[r2], nan_policy="raise")
             if p > ALPHA:
                 print(f'{r} < {r2}')
             else:
@@ -57,13 +59,16 @@ def algoritmo(resumo_):
     return ranking
 
 
-def create_ranking(resumo):
+def criar_ranking(resumo):
     r = algoritmo(resumo)
+
     print(r)
     r_ = {key: rank for rank, key in enumerate(
         sorted(set(r.values()), reverse=True), 1)}
     rank = {k: r_[v] for k, v in r.items()}
     print(rank)
+    for r1 in rank:
+        print(f'{rank[r1]}-{r1} ({r[r1]})')
     save_csv(rank)
 
 
@@ -80,7 +85,7 @@ def create_csv_summary(resumo_):
                 0), resumo[r].count(1), resumo[r].count(2), resumo[r].count(3)))
 
 
-def create_csv_estados(resumo):
+def criar_csv_estados(resumo):
     count_pe = resumo['estado'].count('Pernambuco')
     count_al = resumo['estado'].count('Alagoas')
     count_pb = resumo['estado'].count('Paraíba')
@@ -94,14 +99,23 @@ def create_csv_estados(resumo):
         f.write(f'Outros, {count_outros}')
 
 
+def criar_opinioes(resumo):
+    with open(f'{path_saida}opnioes.csv', 'w') as f:
+        f.write('opiniao\n')
+        for o in resumo['opiniao']:
+            if o != "":
+                f.write(f'{o}\n')
+
+
 def main():
     respostas = read_csv()
     #respostas = respostas[: 2]
-    resumo = create_summary(respostas)
-    create_csv_estados(resumo)
+    resumo = criar_resumo(respostas)
+    criar_csv_estados(resumo)
 
     # create_csv_summary(resumo)
-    create_ranking(resumo)
+    criar_ranking(resumo)
+    criar_opinioes(resumo)
 
 
 if __name__ == '__main__':
