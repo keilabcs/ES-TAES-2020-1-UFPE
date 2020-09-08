@@ -48,6 +48,7 @@ glimpse(Survey)                                                 # Visualização
 
 ```{r}
 head(Survey)
+
 ```
 
 ```{r}
