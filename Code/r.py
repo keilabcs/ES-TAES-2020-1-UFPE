@@ -25,8 +25,7 @@ def save_csv(dict_list):
 
 def criar_resumo(respostas):
     resumo = {'build': [], 'mismanaging': [], 'rework': [], 'unnecessarily': [], 'extraneous': [],
-              'psychological': [], 'waiting': [], 'knowledge': [], 'ineffective': [], 'opiniao': [],
-              'estado': []}
+              'psychological': [], 'waiting': [], 'knowledge': [], 'ineffective': []}
     for resp in respostas:  # percorrendo as respostas de todas as pessoas
         for pergunta in resumo.keys():  # todas as perguntas que fizemos
             resposta = resp[pergunta]
@@ -41,8 +40,6 @@ def criar_resumo(respostas):
 
 def algoritmo(resumo_):
     resumo = copy.deepcopy(resumo_)
-    del resumo['estado']
-    del resumo['opiniao']
     ranking = {}
     for r in resumo.keys():
         cont = 0  # contador das 'vitorias'
@@ -74,8 +71,6 @@ def criar_ranking(resumo):
 
 def create_csv_summary(resumo_):
     resumo = copy.deepcopy(resumo_)
-    del resumo['estado']
-    del resumo['opiniao']
 
     with open(f'{path_saida}resumo_respostas.csv', 'w') as f:
         f.write(
@@ -85,37 +80,11 @@ def create_csv_summary(resumo_):
                 0), resumo[r].count(1), resumo[r].count(2), resumo[r].count(3)))
 
 
-def criar_csv_estados(resumo):
-    count_pe = resumo['estado'].count('Pernambuco')
-    count_al = resumo['estado'].count('Alagoas')
-    count_pb = resumo['estado'].count('Paraíba')
-    count_outros = len(resumo['estado']) - count_pe - count_al - count_pb
-
-    with open(f'{path_saida}resumo_estados.csv', 'w') as f:
-        f.write('estado, quantidade\n')
-        f.write(f'Pernambuco, {count_pe}\n')
-        f.write(f'Alagoas, {count_al}\n')
-        f.write(f'Paraíba, {count_pb}\n')
-        f.write(f'Outros, {count_outros}')
-
-
-def criar_opinioes(resumo):
-    with open(f'{path_saida}opnioes.csv', 'w') as f:
-        f.write('opiniao\n')
-        for o in resumo['opiniao']:
-            if o != "":
-                f.write(f'{o}\n')
-
-
 def main():
     respostas = read_csv()
-    #respostas = respostas[: 2]
     resumo = criar_resumo(respostas)
-    criar_csv_estados(resumo)
-
-    # create_csv_summary(resumo)
+    create_csv_summary(resumo)
     criar_ranking(resumo)
-    criar_opinioes(resumo)
 
 
 if __name__ == '__main__':
