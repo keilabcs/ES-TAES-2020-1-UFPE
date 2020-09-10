@@ -16,8 +16,8 @@ def read_csv():
     return dict_list
 
 
-def save_csv(dict_list):
-    with open(f'{path_saida}ranking.csv', 'w') as f:
+def save_csv(dict_list, name):
+    with open(f'{path_saida}{name}.csv', 'w') as f:
         w = csv.DictWriter(f, dict_list.keys())
         w.writeheader()
         w.writerow(dict_list)
@@ -67,7 +67,8 @@ def criar_ranking(resumo):
     print('\n\nRANKING:')
     for r1 in rank:
         print(f'{rank[r1]}-{r1} ({r[r1]})')
-    save_csv(rank)
+    save_csv(rank, 'ranking')
+    save_csv(r, 'score')
 
 
 def create_csv_summary(resumo_):
