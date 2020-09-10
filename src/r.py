@@ -1,4 +1,4 @@
-#from scipy.stats import mannwhitneyu
+from scipy.stats import mannwhitneyu
 from scipy.stats import ttest_ind
 import csv
 import copy
@@ -42,28 +42,29 @@ def algoritmo(resumo_):
     resumo = copy.deepcopy(resumo_)
     ranking = {}
     for r in resumo.keys():
-        cont = 0  # contador das 'vitorias'
+        print(f'<-------->\nDesperdicio: {r}')
+        score = 0  # contador das 'vitorias'
         for r2 in resumo.keys():
             if r == r2:  # nao comparar com ele mesmo
                 continue
-            stat, p = ttest_ind(resumo[r], resumo[r2], nan_policy="raise")
-            if p > ALPHA:
-                print(f'{r} < {r2}')
-            else:
-                cont += 1
+            ret = mannwhitneyu(resumo[r], resumo[r2], alternative="less")
+
+            if ret.pvalue < ALPHA:
+                score += 1
                 print(f'{r} > {r2}')
-        ranking[r] = cont
+        ranking[r] = score
     return ranking
 
 
 def criar_ranking(resumo):
     r = algoritmo(resumo)
 
-    print(r)
+    # print(r)
     r_ = {key: rank for rank, key in enumerate(
         sorted(set(r.values()), reverse=True), 1)}
     rank = {k: r_[v] for k, v in r.items()}
-    print(rank)
+    # print(rank)
+    print('\n\nRANKING:')
     for r1 in rank:
         print(f'{rank[r1]}-{r1} ({r[r1]})')
     save_csv(rank)
@@ -80,8 +81,26 @@ def create_csv_summary(resumo_):
                 0), resumo[r].count(1), resumo[r].count(2), resumo[r].count(3)))
 
 
+def subir_no_ranking(rank_list, n):
+    for key in rank_list.keys():
+        if rank_list[key] < n:
+            rank_list[key] = str(int(rank_list[key]) + 1)
+    return rank_list
+
+
+def organizar_ranking(respostas):
+    for count, r in enumerate(respostas):
+        for i in range(1, 4):
+            v = r.values()
+            n = str(i)
+            if not n in v:
+                h = subir_no_ranking(r, n)
+                respostas[count] = h
+
+
 def main():
     respostas = read_csv()
+    organizar_ranking(respostas)
     resumo = criar_resumo(respostas)
     create_csv_summary(resumo)
     criar_ranking(resumo)
