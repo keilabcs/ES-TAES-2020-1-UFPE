@@ -25,7 +25,7 @@ def read_csv():
 
 
 def save_csv(dict_list):
-    with open('new_results.csv', 'w') as f:
+    with open('transformed_results.csv', 'w') as f:
         w = csv.DictWriter(f, dict_list[0].keys())
         w.writeheader()
         for d in dict_list:

@@ -8,7 +8,7 @@ ALPHA = 0.05
 
 
 def read_csv():
-    mycsv = open('../data/new_results.csv', 'r')
+    mycsv = open('../data/transformed_results.csv', 'r')
     reader = csv.DictReader(mycsv)
     dict_list = []
     for line in reader:
@@ -56,7 +56,7 @@ def algoritmo(resumo_):
     return ranking
 
 
-def criar_ranking(resumo):
+def exibir_ranking(resumo):
     r = algoritmo(resumo)
 
     # print(r)
@@ -104,7 +104,7 @@ def main():
     organizar_ranking(respostas)
     resumo = criar_resumo(respostas)
     create_csv_summary(resumo)
-    criar_ranking(resumo)
+    exibir_ranking(resumo)
 
 
 if __name__ == '__main__':
