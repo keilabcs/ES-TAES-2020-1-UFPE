@@ -13,4 +13,5 @@ Observo frequência = 3
 ```
 
 `resumo_respostas.csv`: o apanhado geral das 75 respostas.
+
 `resumo_estados`: a quantidade de respostas por estado.
