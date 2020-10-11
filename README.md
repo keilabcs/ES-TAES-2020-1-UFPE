@@ -1,5 +1,6 @@
 
 # ES-TAES - 2020.1 - CIN/UFPE
+Disciplina IN0953	- ENGENHARIA DE SOFTWARE - Cin/UFPE - 2020.1
 
 #### Discentes
 * [Denini Gabriel](https://github.com/denini08)
@@ -12,11 +13,9 @@
 
 ### Survey Software Development Waste
 
-
 O objetivo desta pesquisa, realizada através de questionário, é identificar os principais motivos que acarretam a perda de produtividade no processo de desenvolvimento de software.
 
 Público alvo: Profissionais que atuem direta ou indiretamente com o desenvolvimento de software, em qualquer das suas etapas (requisitos, desenvolvimento, teste, gerencia, configuração e suporte).
-
 
 
 #### Paper Base
